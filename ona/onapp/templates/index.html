@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <div class="container mt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Employment</th>
+                    <th>Marital Status</th>
+                    <th>Photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data %}
+                <tr>
+                    <td>{{ data.Name }}</td>
+                    <td>{{ data.Age }}</td>
+                    <td>{{ data.Gender }}</td>
+                    <td>{{ data.Employment }}</td>
+                    <td>{{ data.Marital_Status }}</td>
+                    <td>{{ data.Photo.name}}</td>
+                </tr>
+                {% endfor %}    
+            </tbody>
+        </table>
+   </div>
+   <button type="button" class="btn btn-info" value="save_to_database" onclick="save_to_database">Save to database</button>
+</div>
+
+{% endblock %}
