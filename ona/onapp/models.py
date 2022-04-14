@@ -6,12 +6,8 @@ from django.dispatch import receiver
 
 # Create your models here.
 class StartDate(models.Model):
-    start_date = models.DateField(blank=True, null=True)
- 
-class EndDate(models.Model):    
-    end_date = models.DateField(blank=True, null=True)
-  
-       
+    start_date = models.DateTimeField(blank=True, null=True)
+    
 class OnaData(models.Model):
     name = models.CharField(max_length = 120, blank=True, null=True)
     age =models.IntegerField(blank=True, null=True)

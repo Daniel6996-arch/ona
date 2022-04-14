@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 from pathlib import Path
 import os
+from celery.schedules import crontab 
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat', 
+   
 ]
 
 MIDDLEWARE = [
@@ -72,6 +75,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ona.wsgi.application'
 
+CELERY_BROKER_URL = 'redis://localhost:6379'   
+# If time zones are active (USE_TZ = True) define your local 
+CELERY_TIMEZONE = 'Africa/Nairobi'
+# app.conf.enable_utc = False # so celery doesn't take utc by default
+# We're going to have our tasks rolling soon, so that will be handy 
+CELERY_BEAT_SCHEDULE = {
+    'send-summary-every-hour': {
+       'task': 'summary',
+        # There are 4 ways we can handle time, read further 
+       'schedule': 30.0,
+        # If you're using any arguments
+       'args': (),
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -79,7 +96,7 @@ WSGI_APPLICATION = 'ona.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'onapp',
+        'NAME': 'olla',
         'USER': 'upandedesigners',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -113,6 +130,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Africa/Nairobi'
+
+
 
 USE_I18N = True
 
